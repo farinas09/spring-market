@@ -27,6 +27,10 @@ public interface ProductMapper {
     List<Product> toProducts(List<ProductEntity> products);
 
     @InheritInverseConfiguration
-    @Mapping(target = "categoryEntity", ignore = true)
+    @Mappings({
+            @Mapping(target = "categoryEntity", ignore = true),
+            @Mapping(target = "status", constant = "true")
+    }
+    )
     ProductEntity toProductEntity(Product product);
 }

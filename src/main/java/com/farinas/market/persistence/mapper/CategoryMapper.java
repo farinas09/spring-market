@@ -25,6 +25,11 @@ public interface CategoryMapper {
     List<Category> toCategories(List<CategoryEntity> categories);
 
     @InheritInverseConfiguration
-    @Mapping(target = "productEntities", ignore = true)
+    @Mappings({
+            @Mapping(target = "productEntities", ignore = true),
+            @Mapping(target = "status", constant = "true")
+    }
+    )
+
     CategoryEntity toCategoryEntity(Category category);
 }
