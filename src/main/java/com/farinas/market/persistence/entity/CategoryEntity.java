@@ -1,11 +1,11 @@
-package com.farinas.market.entity;
+package com.farinas.market.persistence.entity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,7 +14,7 @@ public class Category {
     private Boolean status;
 
     @OneToMany(mappedBy = "categoryEntity")
-    private List<Product> productEntities;
+    private List<ProductEntity> productEntities;
 
     public Integer getId() {
         return id;
@@ -40,11 +40,11 @@ public class Category {
         this.status = status;
     }
 
-    public List<Product> getProductEntities() {
+    public List<ProductEntity> getProductEntities() {
         return productEntities;
     }
 
-    public void setProductEntities(List<Product> productEntities) {
+    public void setProductEntities(List<ProductEntity> productEntities) {
         this.productEntities = productEntities;
     }
 }

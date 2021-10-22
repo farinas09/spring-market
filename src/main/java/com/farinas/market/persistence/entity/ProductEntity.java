@@ -1,11 +1,11 @@
-package com.farinas.market.entity;
+package com.farinas.market.persistence.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name="products")
-public class Product {
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name="category_id", insertable = false, updatable = false)
-    private Category category;
+    private CategoryEntity category;
 
     public Integer getId() {
         return id;
@@ -84,11 +84,11 @@ public class Product {
         this.status = status;
     }
 
-    public Category getCategoryEntity() {
+    public CategoryEntity getCategoryEntity() {
         return category;
     }
 
-    public void setCategoryEntity(Category category) {
+    public void setCategoryEntity(CategoryEntity category) {
         this.category = category;
     }
 
