@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -79,6 +80,13 @@ public class AuthController {
         String jwtValue = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Jwt jwt = new Jwt(jwtValue, userDetails.getUsername(), userDetails.getAuthorities());
+        User user = userService.getByUsername(userDetails.getUsername()).map(element -> new User(element.getName(), element.getUsername(), element.getPassword()))
+                .orElse(null);
+        if(user!=null) {
+            user.setLastLogin(LocalDateTime.now());
+            userService.save(user);
+        }
+
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 }

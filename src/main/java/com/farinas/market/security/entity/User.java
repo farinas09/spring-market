@@ -18,7 +18,7 @@ public class User {
     @NotNull
     private String name;
     @NotNull
-    @Column(unique = true)
+    @Column()
     private String username;
     @NotNull
     private String password;
@@ -28,6 +28,10 @@ public class User {
     @Column(name = "created_at", insertable = false, updatable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+
+    @Column(name = "last_login",
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime lastLogin;
 
     @NotNull
     //Relación many to many
@@ -101,6 +105,14 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -108,4 +120,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }
