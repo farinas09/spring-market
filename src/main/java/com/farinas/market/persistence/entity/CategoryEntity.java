@@ -1,6 +1,7 @@
 package com.farinas.market.persistence.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -12,8 +13,13 @@ public class CategoryEntity {
 
     private String description;
     private Boolean status;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "categoryEntity")
+    @Column(name = "modified_at")
+    private Timestamp modifiedAt;
+
+    @OneToMany(mappedBy = "category")
     private List<ProductEntity> productEntities;
 
     public Integer getId() {
@@ -46,5 +52,21 @@ public class CategoryEntity {
 
     public void setProductEntities(List<ProductEntity> productEntities) {
         this.productEntities = productEntities;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Timestamp modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

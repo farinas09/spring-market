@@ -22,8 +22,6 @@ public class ProductEntity {
     @Column(name = "sale_price")
     private Double salePrice;
 
-    private Integer stock;
-
     @Column(name = "created_at")
     private Timestamp createdAt;
 
@@ -66,14 +64,6 @@ public class ProductEntity {
 
     public void setSalePrice(Double salePrice) {
         this.salePrice = salePrice;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public Boolean getStatus() {
