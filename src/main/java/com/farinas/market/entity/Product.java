@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="products")
-public class ProductEntity {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class ProductEntity {
 
     @ManyToOne
     @JoinColumn(name="category_id", insertable = false, updatable = false)
-    private CategoryEntity categoryEntity;
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -84,12 +84,12 @@ public class ProductEntity {
         this.status = status;
     }
 
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
+    public Category getCategoryEntity() {
+        return category;
     }
 
-    public void setCategoryEntity(CategoryEntity categoryEntity) {
-        this.categoryEntity = categoryEntity;
+    public void setCategoryEntity(Category category) {
+        this.category = category;
     }
 
     public Double getCost() {
