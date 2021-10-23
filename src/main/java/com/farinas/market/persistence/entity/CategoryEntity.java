@@ -2,6 +2,7 @@ package com.farinas.market.persistence.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,14 @@ public class CategoryEntity {
 
     private String description;
     private Boolean status;
-    @Column(name = "created_at")
-    private Timestamp createdAt;
 
-    @Column(name = "modified_at")
-    private Timestamp modifiedAt;
+    @Column(name = "created_at", insertable = false, updatable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
+
+    @Column(name = "modified_at",
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime modifiedAt;
 
     @OneToMany(mappedBy = "category")
     private List<ProductEntity> productEntities;
@@ -54,19 +58,19 @@ public class CategoryEntity {
         this.productEntities = productEntities;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Timestamp modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 }

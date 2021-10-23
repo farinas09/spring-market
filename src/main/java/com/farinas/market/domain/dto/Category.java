@@ -1,13 +1,14 @@
 package com.farinas.market.domain.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Category {
     private int categoryId;
     private String description;
     private boolean active;
-    private Timestamp createdAt;
-    private Timestamp modifiedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     public int getCategoryId() {
         return categoryId;
@@ -33,19 +34,19 @@ public class Category {
         this.active = active;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Timestamp modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 }

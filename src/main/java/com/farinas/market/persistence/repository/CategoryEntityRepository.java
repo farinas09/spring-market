@@ -36,6 +36,10 @@ public class CategoryEntityRepository implements CategoryRepository {
 
     @Override
     public void deleteCategory(int id) {
-        categoryEntityCrudRepository.deleteById(id);
+        categoryEntityCrudRepository.findById(id).map(category -> {
+            category.setStatus(false);
+            return categoryEntityCrudRepository.save(category);
+        });
+        //categoryEntityCrudRepository.deleteById(id);
     }
 }

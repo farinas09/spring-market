@@ -1,6 +1,7 @@
 package com.farinas.market.web.controller;
 
 import com.farinas.market.domain.dto.Category;
+import com.farinas.market.domain.dto.Message;
 import com.farinas.market.domain.dto.Product;
 import com.farinas.market.domain.repository.CategoryRepository;
 import com.farinas.market.domain.service.CategoryService;
@@ -42,15 +43,17 @@ public class CategoryController {
 
     @PostMapping()
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
-        return new ResponseEntity<>(categoryService.saveCategory(category), HttpStatus.CREATED);
+        Category cat = categoryService.saveCategory(category);
+        cat = categoryService.getCategory(cat.getCategoryId()).get();
+        return new ResponseEntity<>(cat, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteCategory(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteCategory(@PathVariable("id") int id) {
         if(categoryService.deleteCategory(id)) {
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(new Message("Deleted Successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Message("Category not found"), HttpStatus.NOT_FOUND);
         }
     }
 }
