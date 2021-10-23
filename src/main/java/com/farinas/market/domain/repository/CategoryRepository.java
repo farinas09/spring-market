@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface CategoryRepository {
     List<Category> getAll();
     Optional<Category> getCategory(int id);
-    Category saveCategory(Category product);
+    Category saveCategory(Category category);
+    Category updateCategory(Category category);
     void deleteCategory(int id);
 }

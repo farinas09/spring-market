@@ -19,7 +19,7 @@ public class CategoryEntity {
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Column(name = "modified_at",
+    @Column(name = "modified_at", insertable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime modifiedAt;
 

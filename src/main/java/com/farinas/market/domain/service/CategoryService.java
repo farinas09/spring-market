@@ -25,6 +25,10 @@ public class CategoryService {
         return categoryRepository.saveCategory(category);
     }
 
+    public Category updateCategory(Category category) {
+        return categoryRepository.updateCategory(category);
+    }
+
     public boolean deleteCategory(int id) {
         return getCategory(id).map(category -> {
             categoryRepository.deleteCategory(id);
