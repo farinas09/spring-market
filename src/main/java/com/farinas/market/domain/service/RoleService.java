@@ -1,8 +1,9 @@
-package com.farinas.market.security.service;
+package com.farinas.market.domain.service;
 
-import com.farinas.market.security.entity.Role;
+import com.farinas.market.domain.dto.Role;
+import com.farinas.market.persistence.entity.RoleEntity;
 import com.farinas.market.security.enums.RoleName;
-import com.farinas.market.security.repository.RoleRepository;
+import com.farinas.market.domain.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,10 @@ public class RoleService {
     RoleRepository roleRepository;
 
     public Optional<Role> getByRoleName(RoleName roleName){
-        return  roleRepository.findByRoleName(roleName);
+        return  roleRepository.getByRoleName(roleName);
     }
 
-    public void save(Role role){
-        roleRepository.save(role);
+    public void save(Role roleEntity){
+        roleRepository.saveRole(roleEntity);
     }
 }

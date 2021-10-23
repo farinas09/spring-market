@@ -1,4 +1,4 @@
-package com.farinas.market.security.entity;
+package com.farinas.market.persistence.entity;
 
 import com.farinas.market.security.enums.RoleName;
 import com.sun.istack.NotNull;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class RoleEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "id_role")
@@ -18,10 +18,10 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    public Role() {
+    public RoleEntity() {
     }
 
-    public Role(@NotNull RoleName roleName) {
+    public RoleEntity(@NotNull RoleName roleName) {
         this.roleName = roleName;
     }
 

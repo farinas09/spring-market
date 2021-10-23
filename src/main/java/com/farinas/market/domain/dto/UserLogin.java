@@ -1,4 +1,4 @@
-package com.farinas.market.security.dto;
+package com.farinas.market.domain.dto;
 
 public class UserLogin {
     private String username;

@@ -1,14 +1,10 @@
-package com.farinas.market.security.controller;
+package com.farinas.market.web.controller;
 
-import com.farinas.market.security.dto.Jwt;
-import com.farinas.market.security.dto.UserLogin;
-import com.farinas.market.security.dto.UserRegister;
-import com.farinas.market.security.entity.Role;
-import com.farinas.market.security.entity.User;
+import com.farinas.market.domain.dto.*;
 import com.farinas.market.security.enums.RoleName;
 import com.farinas.market.security.jwt.JwtProvider;
-import com.farinas.market.security.service.RoleService;
-import com.farinas.market.security.service.UserService;
+import com.farinas.market.domain.service.RoleService;
+import com.farinas.market.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,13 +61,13 @@ public class AuthController {
 
         userService.save(user);
 
-        return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
+        return new ResponseEntity<>(new Message("User created"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLogin userLogin, BindingResult bindingResult){
         if (bindingResult.hasErrors())
-            return new ResponseEntity<>("Campos mal", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Message("Bad request"), HttpStatus.BAD_REQUEST);
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(userLogin.getUsername(),
@@ -79,14 +75,17 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtValue = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Jwt jwt = new Jwt(jwtValue, userDetails.getUsername(), userDetails.getAuthorities());
-        User user = userService.getByUsername(userDetails.getUsername()).map(element -> new User(element.getName(), element.getUsername(), element.getPassword()))
-                .orElse(null);
+        User user = userService.getByUsername(userDetails.getUsername()).orElse(null);
+
         if(user!=null) {
+            AuthResponse response = new AuthResponse(jwtValue, user);
             user.setLastLogin(LocalDateTime.now());
             userService.save(user);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new Message("User not found"), HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 }

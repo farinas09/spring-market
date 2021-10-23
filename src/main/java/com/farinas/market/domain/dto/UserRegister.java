@@ -1,12 +1,17 @@
-package com.farinas.market.security.dto;
+package com.farinas.market.domain.dto;
+
+import com.sun.istack.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class UserRegister {
 
+    @NotNull
     private String name;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
     //User role as default
     private Set<String> roles = new HashSet<>();

@@ -1,6 +1,8 @@
 package com.farinas.market.security.service;
 
-import com.farinas.market.security.entity.User;
+import com.farinas.market.domain.dto.User;
+import com.farinas.market.persistence.repository.UserEntityRepository;
+import com.farinas.market.persistence.entity.UserEntity;
 import com.farinas.market.security.entity.UserMain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +16,11 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    UserService userService;
+    UserEntityRepository userEntityRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getByUsername(username).get();
+        User user = userEntityRepository.getByUsername(username).get();
         return UserMain.build(user);
     }
 }

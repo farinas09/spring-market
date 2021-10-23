@@ -1,11 +1,12 @@
-package com.farinas.market.security.service;
+package com.farinas.market.domain.service;
 
-import com.farinas.market.security.entity.User;
-import com.farinas.market.security.repository.UserRepository;
+import com.farinas.market.domain.dto.User;
+import com.farinas.market.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,13 +16,13 @@ public class UserService {
     UserRepository userRepository;
 
     public Optional<User> getByUsername(String username){
-        return userRepository.findByUsername(username);
+        return userRepository.getByUsername(username);
     }
     public Boolean existsByUsername(String username){
         return userRepository.existsByUsername(username);
     }
-
     public void save(User user){
-        userRepository.save(user);
+        userRepository.saveUser(user);
     }
+    public List<User> getAll() { return userRepository.getAll(); }
 }

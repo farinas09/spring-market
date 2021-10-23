@@ -1,7 +1,7 @@
 package com.farinas.market.security;
 
 import com.farinas.market.security.jwt.JwtEntryPoint;
-import com.farinas.market.security.jwt.JwtTokenFilter;
+import com.farinas.market.security.jwt.JwtFilterRequest;
 import com.farinas.market.security.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,8 +31,8 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     JwtEntryPoint jwtEntryPoint;
 
     @Bean
-    public JwtTokenFilter jwtTokenFilter(){
-        return new JwtTokenFilter();
+    public JwtFilterRequest jwtTokenFilter(){
+        return new JwtFilterRequest();
     }
 
     @Bean

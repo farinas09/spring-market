@@ -1,5 +1,7 @@
 package com.farinas.market.security.entity;
 
+import com.farinas.market.domain.dto.User;
+import com.farinas.market.persistence.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,16 +1,15 @@
-package com.farinas.market.security.entity;
+package com.farinas.market.persistence.entity;
 
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
@@ -43,15 +42,15 @@ public class User {
     // inverseJoinColumns = el inverso, hace referencia a rol
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleEntity> roleEntities = new HashSet<>();
 
-    public User() {
+    public UserEntity() {
     }
 
     //Constuctor sin Id ni Roles
-    public User(@NotNull String name,
-                   @NotNull String username,
-                   @NotNull String password) {
+    public UserEntity(@NotNull String name,
+                      @NotNull String username,
+                      @NotNull String password) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -113,12 +112,12 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Set<RoleEntity> getRoles() {
+        return roleEntities;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Set<RoleEntity> roleEntities) {
+        this.roleEntities = roleEntities;
     }
 
 
