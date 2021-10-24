@@ -3,7 +3,7 @@
 
 <p align="center">
   <kbd>
-    <img src="https://github.com/farinas09/portfolio/blob/main/swagger-ui.PNG"></img>
+    <img src="https://github.com/farinas09/portfolio/blob/main/swagger-ui.png"></img>
   </kbd>
 </p>
 
