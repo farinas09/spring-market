@@ -15,7 +15,6 @@ public class JwtProvider {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-    //Valores que tenemos en el aplicattion.properties
     @Value("${jwt.secret}")
     private String secret;
 

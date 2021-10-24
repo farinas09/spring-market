@@ -13,7 +13,6 @@ public class UserRegister {
     private String username;
     @NotNull
     private String password;
-    //User role as default
     private Set<String> roles = new HashSet<>();
 
     public String getName() {

@@ -51,6 +51,5 @@ public class CategoryEntityRepository implements CategoryRepository {
             category.setStatus(false);
             return categoryEntityCrudRepository.save(category);
         });
-        //categoryEntityCrudRepository.deleteById(id);
     }
 }

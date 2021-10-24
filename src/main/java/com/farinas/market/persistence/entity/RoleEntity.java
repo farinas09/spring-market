@@ -14,7 +14,6 @@ public class RoleEntity {
     private int id;
 
     @NotNull
-    //Se indica que va a ser un Enum de tipo String
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 

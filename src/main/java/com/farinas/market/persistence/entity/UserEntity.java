@@ -33,13 +33,6 @@ public class UserEntity {
     private LocalDateTime lastLogin;
 
     @NotNull
-    //Relación many to many
-    //Un usuario puede tener MUCHOS roles y un rol puede PERTENECER a varios usuarios
-    //Tabla intermedia que tiene dos campos que va a tener idUsuario y idRol
-    @ManyToMany
-    // join columns hace referencia a la columna que hace referencia hacia esta
-    // Es decir la tabla usuario_rol va a tener un campo que se llama id_usuario
-    // inverseJoinColumns = el inverso, hace referencia a rol
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<RoleEntity> roleEntities = new HashSet<>();

@@ -20,8 +20,4 @@ public class RoleService {
     public Optional<Role> getByRoleName(RoleName roleName){
         return  roleRepository.getByRoleName(roleName);
     }
-
-    public void save(Role roleEntity){
-        roleRepository.saveRole(roleEntity);
-    }
 }

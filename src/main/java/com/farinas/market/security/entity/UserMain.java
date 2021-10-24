@@ -18,7 +18,6 @@ public class UserMain implements UserDetails {
     private boolean isActive;
     private Collection<? extends GrantedAuthority> authorities;
 
-    //Constructor
     public UserMain(String name, String username, String password, boolean isActive, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
         this.username = username;
@@ -27,9 +26,7 @@ public class UserMain implements UserDetails {
         this.authorities = authorities;
     }
 
-    //Metodo que asigna los privilegios (autorización)
     public static UserMain build(User user){
-        //Convertimos la clase Rol a la clase GrantedAuthority
         List<GrantedAuthority> authorities =
                 user.getRoles()
                         .stream()
