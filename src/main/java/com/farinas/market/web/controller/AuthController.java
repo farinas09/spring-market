@@ -5,6 +5,7 @@ import com.farinas.market.security.enums.RoleName;
 import com.farinas.market.security.jwt.JwtProvider;
 import com.farinas.market.domain.service.RoleService;
 import com.farinas.market.domain.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
+@Api(tags = { "Auth" })
 @RequestMapping("/auth")
 @CrossOrigin
 public class AuthController {
@@ -80,7 +82,6 @@ public class AuthController {
 
         if(user!=null) {
             AuthResponse response = new AuthResponse(jwtValue, user);
-            Instant instant = Instant.now() ;
             user.setLastLogin(LocalDateTime.now());
             userService.save(user);
 

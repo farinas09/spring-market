@@ -1,13 +1,9 @@
 package com.farinas.market.web.controller;
 
-import com.farinas.market.domain.dto.Category;
 import com.farinas.market.domain.dto.Message;
 import com.farinas.market.domain.dto.Product;
 import com.farinas.market.domain.service.ProductService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Api(tags = { "Products" })
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
@@ -68,11 +65,11 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") int id) {
         if(productService.deleteProduct(id)) {
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(new Message("Product deleted successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Message("Product not found"),HttpStatus.NOT_FOUND);
         }
     }
 }

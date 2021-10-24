@@ -15,13 +15,15 @@ public class UserMain implements UserDetails {
     private String name;
     private String username;
     private String password;
+    private boolean isActive;
     private Collection<? extends GrantedAuthority> authorities;
 
     //Constructor
-    public UserMain(String name, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserMain(String name, String username, String password, boolean isActive, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.isActive = isActive;
         this.authorities = authorities;
     }
 
@@ -33,7 +35,7 @@ public class UserMain implements UserDetails {
                         .stream()
                         .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
                         .collect(Collectors.toList());
-        return new UserMain(user.getName(), user.getUsername(), user.getPassword(), authorities);
+        return new UserMain(user.getName(), user.getUsername(), user.getPassword(), user.getActive(), authorities);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class UserMain implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive;
     }
     public String getName() {
         return name;
