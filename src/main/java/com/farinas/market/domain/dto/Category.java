@@ -1,10 +1,12 @@
 package com.farinas.market.domain.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Category {
     private int categoryId;
+    @NotBlank
     private String description;
     private boolean active;
     private LocalDateTime createdAt;

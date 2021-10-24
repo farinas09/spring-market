@@ -12,8 +12,10 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,14 +44,18 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
+    public ResponseEntity<?> saveCategory(@Valid @RequestBody Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity<>(new Message("Incorrect fields"), HttpStatus.BAD_REQUEST);
         Category cat = categoryService.saveCategory(category);
         cat = categoryService.getCategory(cat.getCategoryId()).get();
         return new ResponseEntity<>(cat, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateCategory(@RequestBody Category category, @PathVariable("id") int id) {
+    public ResponseEntity updateCategory(@Valid @RequestBody Category category, @PathVariable("id") int id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity<>(new Message("Incorrect fields"), HttpStatus.BAD_REQUEST);
         category.setCategoryId(id);
          return categoryService.getCategory(category.getCategoryId()).map(cat -> {
             Category response = categoryService.updateCategory(category);

@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserRepository {
         List<User> getAll();
-        //Optional<List<User>> getByRole(int roleId);
+        Optional<User> getById(int userId);
         Optional<User> getByUsername(String username);
         User saveUser(User user);
-        void deleteUser(int id);
+        Optional<User> updateUserStatus(int userId);
         Boolean existsByUsername(String username);
 }

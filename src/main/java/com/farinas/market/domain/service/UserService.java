@@ -25,4 +25,8 @@ public class UserService {
         userRepository.saveUser(user);
     }
     public List<User> getAll() { return userRepository.getAll(); }
+    public Optional<User> getUser(int id){
+        return userRepository.getById(id);
+    }
+    public Optional<User> updateUserStatus(int id) { return userRepository.updateUserStatus(id); }
 }

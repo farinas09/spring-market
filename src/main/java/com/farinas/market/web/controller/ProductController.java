@@ -1,5 +1,7 @@
 package com.farinas.market.web.controller;
 
+import com.farinas.market.domain.dto.Category;
+import com.farinas.market.domain.dto.Message;
 import com.farinas.market.domain.dto.Product;
 import com.farinas.market.domain.service.ProductService;
 import io.swagger.annotations.ApiOperation;
@@ -9,8 +11,10 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -46,8 +50,21 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+    public ResponseEntity<?> saveProduct(@Valid  @RequestBody Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity<>(new Message("Incorrect fields"), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(@Valid @RequestBody Product product, @PathVariable("id") int id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity<>(new Message("Incorrect fields"), HttpStatus.BAD_REQUEST);
+        product.setProductId(id);
+        return productService.getProduct(product.getProductId()).map(prod -> {
+            Product response = productService.updateProduct(product);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")

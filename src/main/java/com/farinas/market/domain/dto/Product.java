@@ -1,19 +1,26 @@
 package com.farinas.market.domain.dto;
 
-import javax.persistence.Column;
-import java.sql.Timestamp;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class Product {
 
     private int productId;
+    @NotBlank
     private String name;
+    @NotNull
+    @Min(value = 1L, message = "The value must be integer")
     private int categoryId;
+    @NotNull
     private double cost;
+    @NotNull
     private double price;
     private boolean active;
     private Category category;
-    private Timestamp createdAt;
-    private Timestamp modifiedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     public int getProductId() {
         return productId;
@@ -71,19 +78,19 @@ public class Product {
         this.category = category;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Timestamp modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 }

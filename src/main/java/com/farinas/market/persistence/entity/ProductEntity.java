@@ -2,6 +2,7 @@ package com.farinas.market.persistence.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="products")
@@ -22,11 +23,13 @@ public class ProductEntity {
     @Column(name = "sale_price")
     private Double salePrice;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    @Column(name = "created_at", insertable = false, updatable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
 
-    @Column(name = "modified_at")
-    private Timestamp modifiedAt;
+    @Column(name = "modified_at", insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime modifiedAt;
 
     private Boolean status;
 
@@ -90,19 +93,19 @@ public class ProductEntity {
         this.cost = cost;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Timestamp modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 }

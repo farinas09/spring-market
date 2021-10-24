@@ -30,11 +30,10 @@ public class UserEntityRepository implements UserRepository {
         return mapper.toUsers(userEntities);
     }
 
-    /*@Override
-    public Optional<List<User>> getByRole(int roleId) {
-        List<UserEntity> userEntities = userEntityCrudRepository.findByIdRole(roleId);
-        return Optional.of(mapper.toUsers(userEntities));
-    }*/
+    @Override
+    public Optional<User> getById(int userId) {
+        return userEntityCrudRepository.findById(userId).map(user -> mapper.toUser(user));
+    }
 
     @Override
     public Optional<User> getByUsername(String username) {
@@ -47,8 +46,13 @@ public class UserEntityRepository implements UserRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
-
+    public Optional<User> updateUserStatus(int id) {
+        return userEntityCrudRepository.findById(id).map(userEntity -> {
+            userEntity.setStatus(!userEntity.getStatus());
+            userEntityCrudRepository.save(userEntity);
+            return mapper.toUser(userEntity);
+        }
+        );
     }
 
     @Override

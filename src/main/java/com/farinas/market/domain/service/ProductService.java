@@ -1,5 +1,6 @@
 package com.farinas.market.domain.service;
 
+import com.farinas.market.domain.dto.Category;
 import com.farinas.market.domain.dto.Product;
 import com.farinas.market.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class ProductService {
 
     public Product saveProduct(Product product) {
         return productRepository.saveProduct(product);
+    }
+
+    public Product updateProduct(Product product) {
+        return productRepository.updateProduct(product);
     }
 
     public boolean deleteProduct(int id) {

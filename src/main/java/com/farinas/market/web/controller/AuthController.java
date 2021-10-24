@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -79,6 +80,7 @@ public class AuthController {
 
         if(user!=null) {
             AuthResponse response = new AuthResponse(jwtValue, user);
+            Instant instant = Instant.now() ;
             user.setLastLogin(LocalDateTime.now());
             userService.save(user);
 

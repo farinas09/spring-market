@@ -4,6 +4,7 @@ import com.farinas.market.persistence.entity.RoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,9 @@ import java.util.Set;
 public class User {
 
     private int id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String username;
     private String password;
     private Boolean active;
