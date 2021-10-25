@@ -2,10 +2,13 @@ package com.farinas.market.web.controller;
 
 import com.farinas.market.domain.dto.*;
 import com.farinas.market.security.enums.RoleName;
+import com.farinas.market.security.jwt.JwtEntryPoint;
 import com.farinas.market.security.jwt.JwtProvider;
 import com.farinas.market.domain.service.RoleService;
 import com.farinas.market.domain.service.UserService;
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,13 +47,17 @@ public class AuthController {
     @Autowired
     JwtProvider jwtProvider;
 
+    private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegister newUSer,
                                           BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return new ResponseEntity<>("Campos mal o email invalido", HttpStatus.BAD_REQUEST);
+            logger.error("Register bad request: Incorrect fields");
+            return new ResponseEntity<>("Incorrect fields", HttpStatus.BAD_REQUEST);
         }
         if(userService.existsByUsername(newUSer.getUsername())){
+            logger.error("Register bad request: Username " + newUSer.getUsername() + " already exists");
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
 
@@ -63,14 +70,17 @@ public class AuthController {
         user.setRoles(roles);
 
         userService.save(user);
+        logger.info("Register: User " + user.getUsername() + " created");
 
         return new ResponseEntity<>(new Message("User created"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLogin userLogin, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            logger.error("Register bad request: Incorrect fields");
             return new ResponseEntity<>(new Message("Bad request"), HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(userLogin.getUsername(),
@@ -84,9 +94,10 @@ public class AuthController {
             AuthResponse response = new AuthResponse(jwtValue, user);
             user.setLastLogin(LocalDateTime.now());
             userService.save(user);
-
+            logger.info("Login: User " + user.getUsername() + " logged in");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
+            logger.error("Login: User not found");
             return new ResponseEntity<>(new Message("User not found"), HttpStatus.NOT_FOUND);
         }
 

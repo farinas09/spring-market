@@ -4,6 +4,8 @@ import com.farinas.market.domain.dto.Message;
 import com.farinas.market.domain.dto.User;
 import com.farinas.market.domain.service.UserService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     @ApiOperation("Get all users (requires ADMIN ROLE)")
     public ResponseEntity<List<User>> getAll() {
+        logger.info("Users: Get all");
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
@@ -35,6 +40,7 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@ApiParam(value = "The user id", required = true, example = "1") @PathVariable("id") int id) {
+        logger.info("Users: Get user by id: " + id);
         return userService.getUser(id)
                 .map(user -> new ResponseEntity<User>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -45,9 +51,14 @@ public class UserController {
     @PutMapping("/status/{id}")
     public ResponseEntity<?> disableUser(@PathVariable("id") int id) {
         return userService.updateUserStatus(id)
-                .map(user -> new ResponseEntity<>(new Message(user.getActive()
+                .map(user -> {
+                    logger.info("Users: Get id: " + id + (user.getActive()
+                            ? "User enabled successfully"
+                            : "User disabled successfully"));
+                    return new ResponseEntity<>(new Message(user.getActive()
                         ? "User enabled successfully"
-                        : "User disabled successfully"),HttpStatus.OK))
+                        : "User disabled successfully"),HttpStatus.OK);
+                })
                 .orElse(new ResponseEntity<>(new Message("User not found"), HttpStatus.NOT_FOUND));
     }
 }
