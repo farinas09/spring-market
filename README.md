@@ -3,7 +3,7 @@
 
 <p align="center">
   <kbd>
-    <img src="https://github.com/farinas09/portfolio/blob/main/swagger-ui.PNG"></img>
+    <img src="https://github.com/farinas09/spring-market/blob/main/swagger-ui.png"></img>
   </kbd>
 </p>
 
@@ -11,7 +11,7 @@
 ✔️ Users\
 ✔️ Roles\
 ✔️ Products\
-✔️ Categories\
+✔️ Categories
 
 
 ## Technologies & Dependencies 
@@ -25,19 +25,19 @@
 
 ## Get started 
 
-First, you need to run the `database.sql` file found at root project folder.
+First, open the root project folder and run `database.sql file`. it contains the db schema and example data.
 
 Open the project directory with IntelliJ Idea, then run the application.
 
-The default user is admin and the `password` is `1234`.
+The default user is `admin` and the password is `1234`.
 
-Open `http://localhost:8090` to view it in the browser.
+In development mode, the api url is `http://localhost:8090/market/api`, you can change it in the `application-dev.properties` file.
 
-You will also see Swagger API documentation at `http://localhost:8090/market/api/swagger-ui.html`
+You will also see Swagger API documentation at `http://localhost:8090/market/api/swagger-ui.html`.
 
 If you prefer to use postman, import the collection from the file `MarketAPI.postman_collection.json`
 
-### Prod mode
+### Production mode
 
-Setup your prod environment variables as the example `application-pdn.properties` shows, then in `application.properties` file, change the `spring.profiles.active` value to `pdn`.
+Setup your prod environment variables as the example `application-pdn.properties` shows. Then in `application.properties` file, change the `spring.profiles.active` value to `pdn`.
 
