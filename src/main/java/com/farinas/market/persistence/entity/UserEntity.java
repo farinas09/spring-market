@@ -33,6 +33,7 @@ public class UserEntity {
     private LocalDateTime lastLogin;
 
     @NotNull
+    @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<RoleEntity> roleEntities = new HashSet<>();

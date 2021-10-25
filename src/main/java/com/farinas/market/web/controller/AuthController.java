@@ -51,7 +51,7 @@ public class AuthController {
             return new ResponseEntity<>("Campos mal o email invalido", HttpStatus.BAD_REQUEST);
         }
         if(userService.existsByUsername(newUSer.getUsername())){
-            return new ResponseEntity<>("Ese nombre ya existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
 
         User user = new User(newUSer.getName(), newUSer.getUsername(), passwordEncoder.encode(newUSer.getPassword()));
